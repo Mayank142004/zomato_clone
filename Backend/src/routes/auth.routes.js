@@ -1,11 +1,15 @@
 const express = require('express');
-const { route } = require('../app');
+// const { route } = require('../app');
 const authController = require('../controllers/auth.controller');
 
-const router = express.Router;
+const router = express.Router();
 
-route.post('/user/register',authController.registerUser)
-route.post('/user/register',authController.loginUser)
+router.get('/health', (req, res) => {
+    res.json({ ok: true });
+});
+
+router.post('/user/register',authController.registerUser);
+router.post('/user/login',authController.loginUser);
 
 
 module.exports= router;
