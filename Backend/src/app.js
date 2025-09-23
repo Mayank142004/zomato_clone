@@ -1,24 +1,25 @@
 // create server
-const express= require('express')
+const express = require('express');
+const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth.routes');
 const foodRoutes = require('./routes/food.routes');
-// const cors = require('cors');
-const cookieParser = require('cookie-parser');
-
-
+const foodPartnerRoutes = require('./routes/food-partner.routes');
+const cors = require('cors');
 
 const app = express();
-app.use(express.json()); // it's a middleware use for req.body in controller
+app.use(cors({
+    origin: "http://localhost:5174",
+    credentials: true
+}));
 app.use(cookieParser());
-// app.use(cors({ origin: true, credentials: true }));
- 
+app.use(express.json());
 
-app.get("/", (req, res) =>{
+app.get("/", (req, res) => {
     res.send("Hello World");
 })
 
 app.use('/api/auth', authRoutes);
 app.use('/api/food', foodRoutes);
+app.use('/api/food-partner', foodPartnerRoutes);
 
-
-module.exports= app;
+module.exports = app;
